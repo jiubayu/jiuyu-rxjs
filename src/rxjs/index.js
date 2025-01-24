@@ -6,3 +6,6 @@ export {from} from './internal/observable/from'
 export {fromEvent} from './internal/observable/fromEvent'
 export {map} from './internal/observable/map'
 export {filter} from './internal/observable/filter'
+
+// 调度器
+export {asyncScheduler} from './internal/scheduler/async'

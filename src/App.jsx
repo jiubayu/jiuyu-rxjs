@@ -1,4 +1,4 @@
-import { Observable, of, from, fromEvent, map, filter } from "./rxjs";
+import { Observable, of, from, fromEvent, map, filter, asyncScheduler } from "./rxjs";
 // 可观察对象
 // const observable = new Observable(subscriber => {
 //   subscriber.next(1)
@@ -47,23 +47,32 @@ import { Observable, of, from, fromEvent, map, filter } from "./rxjs";
 
 // setTimeout(() => subscriber.unsubscribe(), 3000)
 
-of(1, 2, 3)
-  .pipe(map((value) => value * 2)) // [2,4,6]
-  .pipe(filter((value) => value > 3)) // [4,6]
-  .pipe(map((value) => value + 1)) // [5,7]
-  .subscribe(
-    (value) => console.log(value),
-    (error) => console.log(error),
-    () => console.log("complete")
-  );
+// of(1, 2, 3)
+//   .pipe(map((value) => value * 2)) // [2,4,6]
+//   .pipe(filter((value) => value > 3)) // [4,6]
+//   .pipe(map((value) => value + 1)) // [5,7]
+//   .subscribe(
+//     (value) => console.log(value),
+//     (error) => console.log(error),
+//     () => console.log("complete")
+//   );
 
-of(1, 2, 3)
-  .pipe(
-    map((value) => value * 2),
-    filter((value) => value > 3),
-    map((value) => value + 1)
-  )
-  .subscribe(console.log);
+// of(1, 2, 3)
+//   .pipe(
+//     map((value) => value * 2),
+//     filter((value) => value > 3),
+//     map((value) => value + 1)
+//   )
+//   .subscribe(console.log);
+
+function task(state) {
+  console.log(state, 'state');
+  if(state < 5) {
+    this.schedule(state + 1, 1000)
+  }
+}
+// 开始调度task任务 task, 1000 延迟时间 ，1 传递给task
+asyncScheduler.schedule(task, 1000, 1);
 
 function App() {
   return <div>app</div>;
